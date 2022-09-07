@@ -11,7 +11,8 @@ cont:= Array new.
 add:= Array new:1.
 aux:= 1.
 1 to: n do:[:i|arreglo at: i put: (UIManager default request: 'ingrese enteros para llenar el arreglo')asInteger.].
-
+Transcript show: 'Arreglo ingresado: '.
+Transcript show: arreglo.
 "Ordeno el arreglo de menor a mayor"
 mayor:= arreglo at: 1.
 
@@ -23,14 +24,15 @@ mayor:= arreglo at: 1.
 		]
 	]
 ].
+Transcript show: '. Arreglo ordenado: '.
+Transcript show: arreglo.
 
 "Cargo el arreglo cont con la frecuencia que se repite cada numero"
 
 cont:= cont, add.
 cont at: 1 put: (Array new: 2).
 (cont at: 1) at:1 put:1.
-
-
+(cont at: 1) at:2 put: (arreglo at:1).
 1 to: n-1 do:[:i|
 		((arreglo at:i)=(arreglo at:i+1))ifTrue:[
 		(cont at: aux)at:1 put: (((cont at:aux)at:1) + 1).
@@ -39,9 +41,10 @@ cont at: 1 put: (Array new: 2).
 		cont:= cont, add.
 		cont at: aux put: (Array new: 2).
 		(cont at: aux) at:1 put:1.
-		(cont at: aux)at:2 put: (arreglo at:i).]
+		(cont at: aux) at: 2 put: (arreglo at:i+1).]
 ].
 
+"Ordeno el arreglo contador"
 
 1 to: (cont size) do:[:i|
 	1 to: ((cont size)-i) do:[:j|
@@ -50,10 +53,15 @@ cont at: 1 put: (Array new: 2).
 			cont at: j put: mayor]
 		]
 	].
-^cont
-"
+Transcript show: '. Contador de frecuencia ordenado: '.
+Transcript show: cont.
+
+aux:=1.
 1 to: (cont size) do:[:i|
-	1 to: ((cont at:i)at:1) do:[:j| arreglo at:j put: ((cont at:i)at:2)]
+	1 to: ((cont at:i)at:1) do:[:j| arreglo at:aux put: ((cont at:i)at:2).
+		aux:=aux+1]
 		].
 
-^arreglo"
+
+Transcript show: '. Arreglo ordenado por frecuencia: '.
+Transcript show: arreglo.
