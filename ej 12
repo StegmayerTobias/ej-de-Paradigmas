@@ -1,0 +1,59 @@
+"Se tiene un arreglo de n números naturales que se quiere ordenar por frecuencia, y en caso de igual
+frecuencia, por su valor. Por ejemplo, a partir del arreglo [1, 3, 1, 7, 2, 7, 1, 7, 3] se quiere obtener
+[1, 1, 1, 7, 7, 7, 3, 3, 2]."
+
+|arreglo cont mayor aux menor n add |
+
+n:= (UIManager default request: 'Ingrese el tamaño que debe tener el arreglo')asInteger.
+
+arreglo:= Array new: n.
+cont:= Array new.
+add:= Array new:1.
+aux:= 1.
+1 to: n do:[:i|arreglo at: i put: (UIManager default request: 'ingrese enteros para llenar el arreglo')asInteger.].
+
+"Ordeno el arreglo de menor a mayor"
+mayor:= arreglo at: 1.
+
+1 to: n do:[:j|
+	1 to: n - j do:[:k| ((arreglo at: k)>( arreglo at: k+1) )ifTrue:[menor:= arreglo at: k+1.
+			arreglo at: k+1 put: (arreglo at: k).
+			arreglo at: k put: menor.
+			
+		]
+	]
+].
+
+"Cargo el arreglo cont con la frecuencia que se repite cada numero"
+
+cont:= cont, add.
+cont at: 1 put: (Array new: 2).
+(cont at: 1) at:1 put:1.
+
+
+1 to: n-1 do:[:i|
+		((arreglo at:i)=(arreglo at:i+1))ifTrue:[
+		(cont at: aux)at:1 put: (((cont at:aux)at:1) + 1).
+		(cont at: aux)at:2 put: (arreglo at:i).
+	]ifFalse:[aux:=aux+1.
+		cont:= cont, add.
+		cont at: aux put: (Array new: 2).
+		(cont at: aux) at:1 put:1.
+		(cont at: aux)at:2 put: (arreglo at:i).]
+].
+
+
+1 to: (cont size) do:[:i|
+	1 to: ((cont size)-i) do:[:j|
+		((cont at: j)at:1)<((cont at:j+1)at:1)ifTrue:[mayor:= (cont at:j+1).
+			cont at: j+1 put: (cont at: j).
+			cont at: j put: mayor]
+		]
+	].
+^cont
+"
+1 to: (cont size) do:[:i|
+	1 to: ((cont at:i)at:1) do:[:j| arreglo at:j put: ((cont at:i)at:2)]
+		].
+
+^arreglo"
