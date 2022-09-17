@@ -1,0 +1,39 @@
+| cadena cadenaSinEspacios j cont cadenaNueva aux k |
+j := 1.
+k := 0.
+cadenaSinEspacios:=''.
+cadena := (UIManager default request:' Ingrese un texto con espacio de mas').
+cont := Array new: 2.
+cont at: 1 put: 0.
+cont at: 2 put: 0.
+cadenaNueva := Array new.
+aux := Array new: 1.
+(cadena at: j) isSpaceSeparator ifTrue: [ 
+	cont at: 1 put: 1.
+		j := j + 1.
+	[ (cadena at: j) isSpaceSeparator ] whileTrue: [ 
+		cont at: 1 put: (cont at: 1) + 1.
+		j := j + 1 ] ].
+j := cadena size.
+(cadena at: j) isSpaceSeparator ifTrue: [ 
+	cont at: 2 put: 1.
+	j := j - 1.
+	[ (cadena at: j) isSpaceSeparator ] whileTrue: [ 
+		cont at: 2 put: (cont at: 2) + 1.
+		j := j - 1 ] ].
+((cont at: 1)+1) to: cadena size - (cont at: 2) do: [ :i | 
+	(cadena at: i) isSpaceSeparator
+		ifTrue: [ 
+			(cadena at: i + 1) isSpaceSeparator ifFalse: [ 
+				cadenaNueva := cadenaNueva , aux.
+				k := k + 1.
+				cadenaNueva at: k put: (cadena at: i) ] ]
+		ifFalse: [ 
+			cadenaNueva := cadenaNueva , aux.
+			k := k + 1.
+			cadenaNueva at: k put: (cadena at: i) ] ].
+1 to: cadenaNueva size do: [ :i | 
+	cadenaSinEspacios := cadenaSinEspacios, (cadenaNueva at: i) asString ].
+
+Transcript clear.
+Transcript show: cadenaSinEspacios; cr. 
