@@ -1,0 +1,35 @@
+"Realizar la división entre dos números enteros utilizando restas hasta el primer dígito
+decimal si es necesario. Tener en cuenta que tanto el dividendo y el divisor pueden
+ser positivos o negativos."
+
+|Dividendo Divisor Sal Cociente Signo|
+Cociente:=0.
+Dividendo:= (UIManager default request:'Ingrese el dividendo')asInteger.
+[(Dividendo isInteger)not]whileTrue:[Dividendo:= (UIManager default request:'Ingrese solo un numero')asInteger.].
+
+Divisor:= (UIManager default request:'Ingrese el divisor distinto de 0')asInteger.
+(Divisor~=0)ifTrue:[
+	[(Divisor isInteger)not]whileTrue:[Divisor:= (UIManager default request:'Ingrese solo un numero')asInteger]
+	]ifFalse:[^'Error: Division por 0'].
+
+(((Dividendo<0)&(Divisor>0))|((Dividendo>0)&(Divisor<0)))ifTrue:[Signo:= '-'].
+
+(Dividendo<0)ifTrue:[Dividendo:= Dividendo*(-1)].
+
+(Divisor<0)ifTrue:[Divisor:= Divisor*(-1)].
+
+[Dividendo >= Divisor]whileTrue:[Dividendo:= Dividendo - Divisor. Cociente:= Cociente+1].
+
+(Dividendo > 0 )ifTrue:[
+	Sal:=(Cociente)asString, ','.
+	Cociente:= 0.
+	Dividendo:= Dividendo * 10.
+	[Dividendo > Divisor]whileTrue:[Dividendo:= Dividendo - Divisor.
+	Cociente:= Cociente + 1.
+	].
+	Sal:= Sal, (Cociente)asString
+	]ifFalse:[Sal:= (Cociente)asString].
+
+(Signo = '-')ifTrue:[Sal:= Signo , Sal].
+
+^Sal
