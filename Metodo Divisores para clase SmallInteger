@@ -1,0 +1,22 @@
+Divisores
+"Devuelve los divisores de un numero en un arreglo"
+
+|arr divisor resto|
+
+arr:= OrderedCollection new.
+arr add: self.
+
+(self ~= 0)ifTrue:[
+	divisor:= self//2.
+	[divisor > 0]whileTrue:[
+		resto:= self\\divisor.
+		(resto = 0)ifTrue:[
+			arr add: divisor
+			
+			].
+			divisor:= divisor-1.
+	].
+	^arr
+	]ifFalse:[
+	^nil
+	].
