@@ -4,9 +4,10 @@ Divisores
 |arr divisor resto|
 
 arr:= OrderedCollection new.
-arr add: self.
 
-(self ~= 0)ifTrue:[
+
+(self > 0)ifTrue:[
+	arr add: self.
 	divisor:= self//2.
 	[divisor > 0]whileTrue:[
 		resto:= self\\divisor.
