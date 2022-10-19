@@ -1,0 +1,9 @@
+| parserOBJ matchList|
+
+parserOBJ := '[a-z]*\@[a-z]*\.com' asRegexIgnoringCase.
+matchList := parserOBJ matchesIn: 'tobias@gmail.com'.
+Transcript open. 
+Transcript clear.
+matchList do:[:each|
+	Transcript show: each asString; cr
+	]
