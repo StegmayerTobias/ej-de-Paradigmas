@@ -1,0 +1,20 @@
+fibonacci
+"segun un entero de entrada, devuelve en un arreglo los primeros n numeros de fibonacci"
+
+|arr |
+(self<0)ifTrue:[
+	^nil
+	]ifFalse:[
+		(self = 0)ifTrue:[
+			arr:= Array new: 1.
+			arr at: 1 put: 1.
+			^arr]ifFalse:[
+			arr:= Array new: self.
+			arr at: 1 put: 1.
+			arr at: 2 put: 1.
+			3 to: self do:[:i|
+				arr at: i put:((arr at:i-1)+(arr at: i -2)).
+				].
+			^arr.
+			]
+	].
